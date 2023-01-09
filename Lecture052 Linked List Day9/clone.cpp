@@ -1,4 +1,4 @@
-class Solution
+ class Solution
 {
    private:
     void insertAtTail(Node* &head, Node* &tail, int d) {
@@ -13,28 +13,8 @@ class Solution
             tail = newNode;
         }
     }
-    
-    void print(Node* head) {
-        while(head != NULL) {
-            cout << head -> data << " ";
-            head = head -> next;
-        }cout << endl;
-    }
-
-    void printRandom(Node* head) {
-        while(head != NULL) {
-            cout << " head data: " << head->data <<" ";
-            if(head ->arb != NULL) {
-                cout << " head random data" << head -> arb ->data;
-            }
-            else
-            {
-                cout << " head random data: NULL";
-            }
-            head = head -> next;
-            cout << endl;
-        }
-    }
+     
+ 
 
     public:
     Node *copyList(Node *head)
@@ -65,36 +45,33 @@ class Solution
         }
         
         // step 3: Random pointer copy
-        originalNode = head;
-        cloneNode = cloneHead;
+         
+        // Node* temp = head;
+        temp = head;
+
         
-        while(originalNode != NULL && cloneNode != NULL) { 
+        while(temp != NULL) { 
             
-            if(originalNode -> arb != NULL) {
-                cloneNode -> arb = originalNode -> arb -> next;
+            if(temp -> next != NULL) {
+                temp -> next-> arb = temp -> arb 
+                ? temp -> arb -> next : temp -> arb;
             }
-            else
-            {
-                cloneNode -> arb  = NULL;
-            }
-            
-            cloneNode = cloneNode -> next;
-            originalNode = originalNode -> next;
+            temp = temp -> next -> next;
+             
         }
         
         //step 4: revert step 2 changes
-        Node* original = head;
-        Node* copy = cloneHead;
+        originalNode = head;
+        cloneNode = cloneHead;
         
-         while (original && copy)
-            {
-                original->next =
-                 original->next? original->next->next : original->next;
-         
-                copy->next = copy->next?copy->next->next:copy->next;
-                original = original->next;
-                copy = copy->next;
+         while(originalNode != NULL && cloneNode != NULL) {
+             originalNode -> next = cloneNode -> next;
+             originalNode = originalNode -> next;
+            if(originalNode != NULL){
+                cloneNode -> next = originalNode -> next;
             }
+            cloneNode = cloneNode -> next;
+        }
 
         // step 5 answer return
         return cloneHead;
